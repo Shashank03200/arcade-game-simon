@@ -1,3 +1,5 @@
+
+
 buttonColors = ["red", "blue", "green", "yellow"]
 gamePattern = []
 userClickedPattern = []
@@ -5,17 +7,24 @@ userClickedPattern = []
 var started = false;
 var level = 0;
 
+$(document).ready(function(){
+    $(".btn").addClass("disabled");
+});
+
 
 function nextSequence() {
+
+    $(".btn").removeClass("disabled");
     userClickedPattern = []
     level++;
     $("#level-title").text("Level " + level)
-
+    
     var randomNumber = Math.floor(Math.random() * 4);
     randomChosenColor = buttonColors[randomNumber];
     gamePattern.push(randomChosenColor);
     $("#" + randomChosenColor).fadeIn(100).fadeOut(100).fadeIn(100)
     playSound(randomChosenColor)
+  
 
 }
 
@@ -24,9 +33,9 @@ $(".btn").click(
     function () {
         userChosenColor = $(this).attr("id")
         userClickedPattern.push(userChosenColor)
-
         checkAnswer(userClickedPattern.length - 1)
         console.log(userClickedPattern.length - 1)
+        if(started)
         playSound(userChosenColor)
         animatePress(userChosenColor)
     }
@@ -49,6 +58,7 @@ function animatePress(currentColor) {
 $(document).keypress(function (event) {
     console.log(event)
     if (!started) {
+        $(".btn").removeClass("disabled");
         started = true;
         level = 0;
         gamePattern = []
@@ -66,6 +76,7 @@ function checkAnswer(currentLevel) {
         }
     }
     else {
+        $("."+gamePattern[currentLevel]).addClass("animate");
         var gameOver = new Audio('sounds/wrong.mp3')
         gameOver.play()
         $("h1").text("Game Over Press any key to restart.")

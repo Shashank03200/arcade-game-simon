@@ -51,7 +51,31 @@ body {
     margin: 100px auto;
   }
   .btn {
-    height: 14rem;
-    width: 10rem;
+    height: 150px;
+    width: 150px;
+  }
+}
+
+.disabled{
+    visibility: hidden;
+}
+
+.visible{
+  visibility: visible;
+}
+
+.animate{
+  animation: effect;
+  animation-duration: 0.4s;
+  animation-iteration-count: 3;
+  animation-fill-mode: forwards;
+}
+
+@keyframes effect{
+  10% {
+    opacity: 0;
+  }
+  90%{
+    opacity: 1;
   }
 }
